@@ -15,7 +15,7 @@ public class TestLegemiddel {
         System.out.println("Id test "+testId(a,1)+"\nNavn test: " +testNavn(a, "Fentanyl")+"\nPris test: "+testPris(a,450)+"\nVirkestoff test: "+testVirkestoff(a, 4.2)+"\nStryke test: "+testStyrke(a,3)+"\n\n");
         System.out.println("Id test "+testId(b,2)+"\nNavn test: " +testNavn(b, "Oksygen")+"\nPris test: "+testPris(b,0)+"\nVirkestoff test: "+testVirkestoff(b, 5.1)+"\nStryke test: "+testStyrke(b,1)+"\n\n");
         System.out.println("Id test "+testId(c,3)+"\nNavn test: " +testNavn(c, "c-vitamin")+"\nPris test: "+testPris(c,20)+"\nVirkestoff test: "+testVirkestoff(c, 2.1)+"\n\n");
-        System.out.println("Id test "+testId(d,4)+"\nNavn test: " +testNavn(d, "d-vitamin")+"\nPris test: "+testPris(d,60)+"\nVirkestoff test: "+testVirkestoff(d, 2.1)+"\n\n");    
+        System.out.println("Id test "+testId(d,4)+"\nNavn test: " +testNavn(d, "c-vitamin")+"\nPris test: "+testPris(d,60)+"\nVirkestoff test: "+testVirkestoff(d, 2.1)+"\n\n");    
     }
 
     //tester id
