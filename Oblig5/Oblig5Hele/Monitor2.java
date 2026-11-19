@@ -77,6 +77,7 @@ public class Monitor2 {
         laas.lock();
         try{
             subreg.settInn(flettet); 
+            antFlettGjort ++;
         }
         finally{
             laas.unlock();
