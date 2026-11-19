@@ -11,6 +11,7 @@ public class HviteResepter extends Resept {
     }
 
     //metode som returnerer prisen på legemiddel
+    @Override
     public int prisAaBetale(){
         return legemiddel.hentPris(); 
     }
