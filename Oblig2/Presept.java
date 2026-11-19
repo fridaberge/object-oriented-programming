@@ -5,6 +5,7 @@ public class Presept extends HviteResepter {
         super(legemiddel, utskrivendeLege, pasientId, reit);
     }
 
+    @Override
     public int prisAaBetale(Legemiddel legemiddel){
         int pris;
         if (legemiddel.hentPris() > 108){ //hvis kjøper er ung
