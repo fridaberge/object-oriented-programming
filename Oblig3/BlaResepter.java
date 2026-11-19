@@ -14,7 +14,7 @@ public class BlaResepter extends Resept {
     //overskriber pris-metoden fra superklasse
     @Override
     public int prisAaBetale(){
-        int pris = Math.round(legemiddel.hentPris()*0.75f); //runder av prisen til nærmeste hele tall (int)
+        int pris = Math.round(legemiddel.hentPris()*0.25f); //runder av prisen til nærmeste hele tall (int)
         return pris;
     }
 
