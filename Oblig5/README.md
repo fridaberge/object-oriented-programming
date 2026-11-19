@@ -128,9 +128,9 @@ The two final maps are compared, and the program prints:
 Each part is a separate program. Compile it and run it from its own
 folder:
 
-    cd Oblig5Del1        # or Oblig5Del2A / Oblig5Del2B
+    cd Oblig5Del2A        # or Oblig5Del2B
     javac *.java
-    java Oblig5Del1 <data folder>
+    java Oblig5Del2A <data folder>
 
     cd Oblig5Hele
     javac *.java
