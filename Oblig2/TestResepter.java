@@ -15,8 +15,8 @@ public class TestResepter {
         // System.out.println("resept3: \n" +blaresept);
 
         //tester
-        System.out.println("\n\nTester P-resept\nLegemiddel: " +testLegemiddel(presept1, minMedisin)+"\nLege: "+testLege(presept1, minFastlege)+ "\nPasient: " +testPasientID(presept1, 1)+"\nReit: " +testReit(presept1, 10) + "\nFarge: " +testFarge(presept1, "hvit")+ "\nPris: " +testPris(presept1, 120)+"\n\n");
-        System.out.println("\n\nTester Millitarresept\nLegemiddel: " +testLegemiddel(milresept1, minMedisin2)+"\nLege: "+testLege(milresept1, minFastlege)+ "\nPasient: " +testPasientID(milresept1, 2)+"\nReit: " +testReit(milresept1, 3) + "\nFarge: " +testFarge(milresept1, "hvit")+ "\nPris: " +testPris(milresept1, 50)+ "\n\n");
+        System.out.println("\n\nTester P-resept\nLegemiddel: " +testLegemiddel(presept1, minMedisin)+"\nLege: "+testLege(presept1, minFastlege)+ "\nPasient: " +testPasientID(presept1, 1)+"\nReit: " +testReit(presept1, 10) + "\nFarge: " +testFarge(presept1, "hvit")+ "\nPris: " +testPris(presept1, 12)+"\n\n");
+        System.out.println("\n\nTester Millitarresept\nLegemiddel: " +testLegemiddel(milresept1, minMedisin2)+"\nLege: "+testLege(milresept1, minFastlege)+ "\nPasient: " +testPasientID(milresept1, 2)+"\nReit: " +testReit(milresept1, 3) + "\nFarge: " +testFarge(milresept1, "hvit")+ "\nPris: " +testPris(milresept1, 0)+ "\n\n");
         System.out.println("\n\nTester Blaa resept\nLegemiddel: " +testLegemiddel(blaresept, minMedisin)+"\nLege: "+testLege(blaresept, minFastlege)+ "\nPasient: " +testPasientID(blaresept, 2)+"\nReit: " +testReit(blaresept, 1) + "\nFarge: " +testFarge(blaresept, "blaa")+ "\n\n");
 
     }
