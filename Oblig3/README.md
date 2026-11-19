@@ -1,25 +1,37 @@
-# IN1010 V22 – Obligatorisk oppgave 3
+# IN1010 Spring 2022 – Mandatory Assignment 3
 
-Lenkede lister og beholdere som skal gjenbrukes i oblig 4: en abstrakt
-`Lenkeliste<T>` og fire subklasser (`Stabel`, `Koe`, `IndeksertListe`,
+Linked lists and containers that are reused in assignment 4: an abstract
+`Lenkeliste<T>` and four subclasses (`Stabel`, `Koe`, `IndeksertListe`,
 `Prioritetskoe`).
 
-## Filer
+## Assignment overview
 
-| Fil | Innhold |
-|-----|---------|
-| `Liste.java` | Grensesnittet `Liste<T>` (gitt i oppgaveteksten) |
-| `Lenkeliste.java` | Abstrakt dobbeltlenket liste + hjelpeklassen `Node<T>` |
-| `Stabel.java` | LIFO: `leggTil` setter inn først i listen |
-| `Koe.java` | FIFO: arver alt fra `Lenkeliste` uten endringer |
-| `IndeksertListe.java` | Innsetting, endring, henting og fjerning på vilkårlig posisjon |
-| `Prioritetskoe.java` | Sortert innsetting (minst først) |
-| `UgyldigListeindeks.java` | Unntaksklasse (gitt av emnet) |
-| `TestStabel.java`, `TestKoe.java`, `TestIndeksertListe.java`, `TestPrioritetskoe.java` | Testprogrammer (gitt av emnet) |
-| `klassehieraki.jpg` | Tegning av klassehierarkiet (del A) |
-| `datastruktur_oblig3.jpg` | Datastrukturtegning (del G) |
+| Part | Task |
+|------|------|
+| A | Draw the class hierarchy |
+| B | `Lenkeliste<T>`: abstract linked list implementing the `Liste<T>` interface. New elements are added at the end and removed from the front |
+| C | `Stabel<T>` (stack): `leggTil` inserts at the front, so the last element added is the first one removed (LIFO) |
+| D | `Koe<T>` (queue): first in, first out (FIFO) |
+| E | `IndeksertListe<T>`: insert, replace, get and remove at any position |
+| F | `Prioritetskoe<T extends Comparable<T>>`: keeps the elements sorted, so the smallest element is always removed first |
+| G | Draw the data structure after a given sequence of operations |
 
-## Kompilere og kjøre
+## Files
+
+| File | Contents |
+|------|----------|
+| `Liste.java` | The `Liste<T>` interface (given in the assignment) |
+| `Lenkeliste.java` | Abstract doubly linked list + helper class `Node<T>` |
+| `Stabel.java` | LIFO: `leggTil` inserts at the front of the list |
+| `Koe.java` | FIFO: inherits everything from `Lenkeliste` unchanged |
+| `IndeksertListe.java` | Insertion, replacement, retrieval and removal at arbitrary positions |
+| `Prioritetskoe.java` | Sorted insertion (smallest first) |
+| `UgyldigListeindeks.java` | Exception class (provided by the course) |
+| `TestStabel.java`, `TestKoe.java`, `TestIndeksertListe.java`, `TestPrioritetskoe.java` | Test programs (provided by the course) |
+| `klassehieraki.jpg` | Class hierarchy drawing (part A) |
+| `datastruktur_oblig3.jpg` | Data structure drawing (part G) |
+
+## Compiling and running
 
 ```bash
 javac *.java
@@ -29,99 +41,102 @@ java TestIndeksertListe
 java TestPrioritetskoe
 ```
 
-## Klassehierarki
+## Class hierarchy
 
 ```
         «interface» Liste<T>
                  ▲
                  │ implements
-                 │
+                 |
       «abstract» Lenkeliste<T>
      ▲        ▲          ▲              ▲
-     |        |          |              | 
+     |        |          |              |
   Stabel<T>  Koe<T>  IndeksertListe<T>  Prioritetskoe<T extends Comparable<T>>
 ```
 
-## Implementasjon
+## Implementation
 
-- Listen er **dobbeltlenket**. Hver `Node<T>` har `verdi`, `neste` og `forrige`.
-- `Lenkeliste` har referansene `start` og `slutt`. De er ikke private, så
-  subklassene kan endre dem.
-- `Node.settNeste(n)` setter også `n.forrige`, slik at begge retningene
-  oppdateres samtidig.
-- `Koe` trenger ingen redefinerte metoder. `Lenkeliste` setter allerede inn
-  sist og tar ut først.
-- `Prioritetskoe` redefinerer bare `leggTil`. Det minste elementet ligger
-  først, så de arvede `hent()` og `fjern()` gir riktig element.
+- The list is **doubly linked**. Each `Node<T>` has `verdi` (value), `neste`
+  (next) and `forrige` (previous).
+- `Lenkeliste` keeps the references `start` and `slutt` (end). They are not
+  private, so the subclasses can modify them.
+- `Node.settNeste(n)` also sets `n.forrige`, so both directions are updated
+  at the same time.
+- `Koe` overrides no methods. `Lenkeliste` already inserts at the end and
+  removes from the front.
+- `Prioritetskoe` overrides only `leggTil`. The smallest element is kept
+  first, so the inherited `hent()` and `fjern()` return the correct element.
 
-## Testresultater
+## Test results
 
-Alle fire testprogrammene skriver ut `Alt gikk bra!`. Testene dekker likevel
-ikke alle tilfeller. Se feilene under.
+All four test programs print `Alt gikk bra!` ("All went well!"). The tests
+don't cover every case, though. See the bugs below.
 
-## Kjente feil og mangler
+## Known bugs and limitations
 
-Feilene ble funnet ved en gjennomgang av koden etter innlevering. De er ikke
-rettet, så det er lett å se hva som ble levert.
+These bugs were found in a code review after submission. They have not been
+fixed, so the submitted version stays as it was.
 
 ### Prioritetskoe
 
-- **`leggTil` mister elementer.** Elementer som skal plasseres rett før det
-  siste elementet, eller som er like det siste, blir aldri satt inn. Løkken
-  stopper på den siste noden, og da hopper `if (denneNoden.hentNeste() != null)`
-  over innsettingen. Eksempel: `B, D, C` gir listen `B, D`. I `TestPrioritetskoe`
-  test 3 forsvinner `"C"` og `"X"`, men testen sjekker bare `hent()` og
-  passerer derfor.
+- **`leggTil` loses elements.** Elements that belong right before the last
+  element, or that are equal to the last element, are never inserted. The
+  loop stops at the last node, and then `if (denneNoden.hentNeste() != null)`
+  skips the insertion. Example: `B, D, C` results in the list `B, D`. In
+  `TestPrioritetskoe` test 3, `"C"` and `"X"` disappear, but the test only
+  checks `hent()`, so it still passes.
 
 ### IndeksertListe
 
-- **`leggTil(pos, x)` midt i listen lager en løkke.** `denneNoden.settNeste(nyNode)`
-  kjøres før den gamle neste-noden er tatt vare på. Derfor peker `nyNode` på
-  seg selv, og `stoerrelse()` havner i en uendelig løkke. Det gjelder posisjoner
-  fra 1 til `stoerrelse() - 2`.
-- **`fjern(pos)` midt i listen fjerner ikke noe.** Bare `forrige`-pekeren til
-  neste node oppdateres. `neste`-pekeren til forrige node peker fortsatt på
-  elementet, så det blir liggende i listen.
-- **`sett(pos, x)` feiler på første og siste posisjon.** Metoden bytter ut hele
-  noden i stedet for verdien, og kaller `hentForrige()`/`hentNeste()` uten
-  null-sjekk. Det gir `NullPointerException`. `start` og `slutt` oppdateres
-  heller aldri. Det hadde holdt å skrive `denneNoden.verdi = x`.
-- **`hent(pos)` har feil grensesjekk.** Den sjekker `pos > stoerrelse()` i
-  stedet for `pos >= stoerrelse()`. Derfor gir `hent(stoerrelse())`
-  `NullPointerException` i stedet for `UgyldigListeindeks`.
-- Instansvariabelen `str` brukes ikke.
+- **`leggTil(pos, x)` in the middle of the list creates a cycle.**
+  `denneNoden.settNeste(nyNode)` runs before the old next node has been saved.
+  As a result `nyNode` points to itself, and `stoerrelse()` loops forever.
+  This affects positions 1 to `stoerrelse() - 2`.
+- **`fjern(pos)` in the middle of the list removes nothing.** Only the
+  `forrige` pointer of the next node is updated. The `neste` pointer of the
+  previous node still points to the element, so it stays in the list.
+- **`sett(pos, x)` fails at the first and last position.** The method replaces
+  the whole node instead of the value, and calls `hentForrige()`/`hentNeste()`
+  without a null check. This throws `NullPointerException`. `start` and
+  `slutt` are never updated either. `denneNoden.verdi = x` would have been
+  enough.
+- **`hent(pos)` has a wrong bounds check.** It checks `pos > stoerrelse()`
+  instead of `pos >= stoerrelse()`. So `hent(stoerrelse())` throws
+  `NullPointerException` instead of `UgyldigListeindeks`.
+- The instance variable `str` is unused.
 
 ### Lenkeliste
 
-- **`hent()` på en tom liste** gir `NullPointerException` i stedet for
+- **`hent()` on an empty list** throws `NullPointerException` instead of
   `UgyldigListeindeks(-1)`.
-- **`fjern()` rydder ikke opp i pekerne.** `start.forrige` settes ikke til
-  `null`, og `slutt` blir ikke `null` når listen blir tom. Begge peker
-  fortsatt på den fjernede noden. Løkken etter fjerningen gjør ingenting.
-- **`stoerrelse()` og `leggTil()` går gjennom hele listen (O(n)).** Det hadde
-  vært bedre å holde en teller oppdatert og bruke `slutt` direkte. Noder med
-  `null` som verdi blir dessuten ikke telt med.
-- **`Node.settNeste(null)` gir `NullPointerException`**, fordi metoden kaller
-  `neste.settForrige(this)`.
+- **`fjern()` doesn't clean up the pointers.** `start.forrige` is not set to
+  `null`, and `slutt` does not become `null` when the list is emptied. Both
+  still point to the removed node. The loop after the removal does nothing.
+- **`stoerrelse()` and `leggTil()` traverse the whole list (O(n)).** It would
+  be better to keep a counter and use `slutt` directly. Nodes with `null` as
+  their value are also not counted.
+- **`Node.settNeste(null)` throws `NullPointerException`**, because the method
+  calls `neste.settForrige(this)`.
 
-### Del G – datastrukturtegningen
+### Part G – the data structure drawing
 
-Tegningen viser **det tiltenkte resultatet** (`B ⇄ D`), ikke det koden faktisk
-gjør. Med koden over krasjer `liste.sett(1, "D")` med `NullPointerException`,
-fordi posisjon 1 er siste node. I tillegg peker `B.forrige` fortsatt på den
-fjernede noden `A` etter `fjern()`. Objektet burde også vært merket
-`IndeksertListe<String>`, ikke `IndeksertListe<T>`.
+The drawing shows **the intended result** (`B ⇄ D`), not what the code
+actually does. With the code above, `liste.sett(1, "D")` crashes with
+`NullPointerException`, because position 1 is the last node. Also,
+`B.forrige` still points to the removed node `A` after `fjern()`. The object
+should also have been labelled `IndeksertListe<String>`, not
+`IndeksertListe<T>`.
 
-### Andre mangler
+### Other limitations
 
-- Oppgaven ber om en **invariant** som beskriver tilstanden til beholderen.
-  Den mangler. Den kunne vært slik: *Tom liste ⇔ `start == null` og
-  `slutt == null`. Ellers er `start.forrige == null`, `slutt.neste == null`,
-  og for alle noder n gjelder `n.neste.forrige == n`.*
-- Teksten på klassehierarki-tegningen sier «Datastrukturtegning», men tegningen
-  viser klassehierarkiet.
+- The assignment asks for an **invariant** describing the state of the
+  container. It is missing. It could have been: *Empty list ⇔ `start == null`
+  and `slutt == null`. Otherwise `start.forrige == null`,
+  `slutt.neste == null`, and for every node n: `n.neste.forrige == n`.*
+- The label on the class hierarchy drawing says "Datastrukturtegning" (data
+  structure drawing), but the drawing shows the class hierarchy.
 
-## Kilder
+## Credits
 
-`Liste.java` (grensesnittet), `UgyldigListeindeks.java` og de fire
-testprogrammene er gitt av IN1010. Resten av koden har jeg skrevet selv.
+`Liste.java` (the interface), `UgyldigListeindeks.java` and the four test
+programs are provided by IN1010. The rest of the code is my own.
