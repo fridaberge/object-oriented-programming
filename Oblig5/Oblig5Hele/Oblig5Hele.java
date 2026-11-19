@@ -36,6 +36,7 @@ public class Oblig5Hele {
             lesMedtrader(mappenavn, syk3, ikkeSyk3);
             flettMedTrader(syk3, antTrader);
             flettMedTrader(ikkeSyk3, antTrader);
+            sammenLiknFrekvens(syk3, ikkeSyk3);
             printDeStorste(syk3, ikkeSyk3);
         }
         catch(ArrayIndexOutOfBoundsException a){
