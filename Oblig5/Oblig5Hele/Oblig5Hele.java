@@ -165,7 +165,7 @@ public class Oblig5Hele {
 
 
     //kan etterpå bytte ut listen med hash.get(s).hentAntall()
-    public static void sammenLiknFrekevns(Monitor2 syk, Monitor2 ikkesyk){
+    public static void sammenLiknFrekvens(Monitor2 syk, Monitor2 ikkesyk){
         int differanse = 0; //må finne den største differansen (der syk har flest forekomster)
         Subsekvens farligsteSub = new Subsekvens("");
 
