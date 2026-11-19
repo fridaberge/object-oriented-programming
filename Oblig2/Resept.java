@@ -36,13 +36,11 @@ public abstract class Resept {
     }
 
     public boolean bruk(){
-        reit --;
-        if(reit < 0){
+        if(reit <= 0){
             return false;
         }
-        else{
-            return true;
-        }
+        reit --;
+        return true;
     }
 
     abstract public String farge();
