@@ -22,7 +22,7 @@ public class FletteTrad implements Runnable{
             else{
                 HashMap<String, Subsekvens> sammenslott = Monitor2.slaSammen(to.get(1), to.get(0)); //slår sammen de to maps-ene som trådene henter ut
                 monitor.settInnFlettet(sammenslott);
-                monitor.antFlettGjort++;
+                //monitor.antFlettGjort++;
             }
             
         }
