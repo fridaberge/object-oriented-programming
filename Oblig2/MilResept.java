@@ -6,7 +6,8 @@ public class MilResept extends HviteResepter {
     }
 
     //metode som returnerer prisen
-    public int prisAaBetale(Legemiddel legemiddel){
+    @Override
+    public int prisAaBetale(){
         return 0;
     }
 
